@@ -4,11 +4,12 @@
 <p> Publisher: : имеет id,  имя, адрес. Связь с книгой @OneToMany. </p>
 <h2>Примеры endpoint:</h2>
 - Книга 
-![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/all_books.JPG)
 
 ![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/bookbyid.JPG)
 ![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/bookbyid.JPG)
 ![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/create_book.JPG)
+![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/all_books.JPG)
+
 -Автор
 ![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/all_authors.JPG)
 ![ime](https://github.com/OlyaEna/jdbc_servlet_app/blob/master/src/main/resources/img/author_delete.JPG)
