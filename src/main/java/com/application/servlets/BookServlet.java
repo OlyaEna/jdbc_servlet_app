@@ -4,6 +4,7 @@ import com.application.dao.BookDao;
 import com.application.dao.jdbc.BookDaoJDBC;
 import com.application.model.Book;
 import com.google.gson.Gson;
+import lombok.Setter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,18 +16,17 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/books/*")
+@Setter
 public class BookServlet extends HttpServlet {
 
-    private final BookDao bookDao;
-
-
+    private BookDao bookDao;
     public BookServlet() {
         super();
         bookDao = new BookDaoJDBC();
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleRequest(request, response);
     }
 
@@ -54,7 +54,7 @@ public class BookServlet extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Book book = new Gson().fromJson(request.getReader(), Book.class);
         book = bookDao.save(book);
@@ -73,7 +73,7 @@ public class BookServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Book book = new Gson().fromJson(request.getReader(), Book.class);
         try {
@@ -85,7 +85,7 @@ public class BookServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         bookDao.delete(id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);

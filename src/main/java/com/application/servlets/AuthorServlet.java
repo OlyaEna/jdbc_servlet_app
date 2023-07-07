@@ -16,7 +16,7 @@ import java.util.List;
 
 @WebServlet("/author/*")
 public class AuthorServlet  extends HttpServlet {
-    private final AuthorDao authorDao;
+    private AuthorDao authorDao;
 
 
     public AuthorServlet() {
@@ -25,7 +25,7 @@ public class AuthorServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleRequest(request, response);
     }
 
@@ -62,7 +62,7 @@ public class AuthorServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Author author = new Gson().fromJson(request.getReader(), Author.class);
         author = authorDao.save(author);
@@ -71,7 +71,7 @@ public class AuthorServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Author author = new Gson().fromJson(request.getReader(), Author.class);
         try {
@@ -84,9 +84,13 @@ public class AuthorServlet  extends HttpServlet {
 
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         authorDao.delete(id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+    }
+
+    public  void setAuthorDao(AuthorDao authorDao){
+        this.authorDao=authorDao;
     }
 }

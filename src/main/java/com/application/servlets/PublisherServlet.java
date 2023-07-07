@@ -5,6 +5,8 @@ import com.application.dao.jdbc.PublisherDaoJDBC;
 import com.application.model.Author;
 import com.application.model.Publisher;
 import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +18,9 @@ import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet("/publisher/*")
+@Setter
 public class PublisherServlet extends HttpServlet {
-    private  final PublisherDao publisherDao;
+    private  PublisherDao publisherDao;
 
     public PublisherServlet() {
         super();
@@ -25,7 +28,7 @@ public class PublisherServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleRequest(request, response);
     }
 
@@ -57,7 +60,7 @@ public class PublisherServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Publisher publisher = new Gson().fromJson(request.getReader(), Publisher.class);
         publisher = publisherDao.save(publisher);
@@ -66,7 +69,7 @@ public class PublisherServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         Publisher publisher = new Gson().fromJson(request.getReader(), Publisher.class);
         try {
@@ -79,7 +82,7 @@ public class PublisherServlet extends HttpServlet {
 
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
         publisherDao.delete(id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
